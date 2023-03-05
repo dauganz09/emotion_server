@@ -39,7 +39,7 @@ def analyze_api():
         prediction = model.predict([comment["comment"]])
 
         output = prediction[0]
-        cursor.execute('INSERT INTO tbl_emotions values (NULL,%s,%s,%s,%s)',
+        cursor.execute('INSERT INTO tbl_emotions (question_id,user_id,comment,emotion) values (%s,%s,%s,%s)',
                        (comment["question_id"], data['user_id'], comment["comment"], output))
         mysql.connection.commit()
         em = {'qid': comment["question_id"], 'emotion': output}
